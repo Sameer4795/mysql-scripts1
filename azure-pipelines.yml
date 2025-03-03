@@ -2,7 +2,8 @@ trigger:
   - main  # Trigger pipeline on changes to the main branch
 
 pool:
-  vmImage: 'ubuntu-latest'  # You can change this to a self-hosted agent if needed
+  name: Default  # Make sure this points to the default pool
+
 
 variables:
   mysqlHost: 'localhost'  # Use localhost if MySQL is installed on the same machine
