@@ -1,0 +1,27 @@
+trigger:
+  - main  # Trigger pipeline on changes to the main branch
+
+pool:
+  vmImage: 'ubuntu-latest'  # You can change this to a self-hosted agent if needed
+
+variables:
+  mysqlHost: 'localhost'  # Use localhost if MySQL is installed on the same machine
+  mysqlUser: 'root'  # MySQL user
+  mysqlPassword: 'root'  # Replace with the actual password
+  databaseName: 'my_database'  # Name of the database to use
+  sqlFile: 'setup.sql'  # Name of your SQL file (update path if inside a folder)
+
+steps:
+  - checkout: self  # Checkout the repository (this pulls your setup.sql file)
+
+  - script: |
+      echo "Installing MySQL client..."
+      sudo apt-get update
+      sudo apt-get install mysql-client -y  # Install MySQL client on the build agent
+    displayName: 'Install MySQL Client'
+
+  - script: |
+      echo "Running SQL script..."
+      mysql -h $(mysqlHost) -u $(mysqlUser) -p$(mysqlPassword) $(databaseName) < $(Build.SourcesDirectory)/$(sqlFile)
+    displayName: 'Run SQL Script'
+    condition: succeeded()  # Run only if the previous step was successful
