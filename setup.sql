@@ -9,8 +9,12 @@ CREATE TABLE IF NOT EXISTS employees (
     salary DECIMAL(10, 2)
 );
 
-INSERT INTO employees (name, position, salary) VALUES
-('John Doe', 'Software Engineer', 80000),
-    ('aafiya Mam', 'Software Engineer', 80000),
-('Jane Smith', 'Project Manager', 90000);
+INSERT INTO employee (id, name, position)
+SELECT 1, 'John Doe', 'Manager'
+WHERE NOT EXISTS (SELECT 1 FROM employee WHERE id = 1);
+
+INSERT INTO employee (id, name, position)
+SELECT 2, 'Jane Smith', 'Developer'
+WHERE NOT EXISTS (SELECT 1 FROM employee WHERE id = 2);
+
 
