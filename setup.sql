@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS employees (
 
 INSERT INTO employees (name, position, salary) VALUES
 ('John Doe', 'Software Engineer', 80000),
+    ('aafiya Mam', 'Software Engineer', 80000),
 ('Jane Smith', 'Project Manager', 90000);
 
